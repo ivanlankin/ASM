@@ -10,6 +10,8 @@ start:                       ;Точка входа в программу start
 mov AX, @data                ;который сначала загрузим в AX,
 mov DS,AX                    ;а затем перенесем из AX в DS
 mov DX,offset UserName
+mov AX, 04h
+mov BX, 08h
 call Out_string
 call print_two_digits
 
@@ -17,13 +19,13 @@ mov AX,4C00h
 int 21h
 
 print_two_digits proc
-		mov BL, 04h
+		mov BL, AL
 		call print_char
 		mov BL, 20h
 		mov AH, 02h
 		mov DL, BL
 		int 21h
-		mov BL, 08h
+		mov BL, AL
 		call print_char
 		ret
 print_two_digits endp
@@ -37,7 +39,7 @@ print_char proc
 print_char endp
 
 Out_string proc
-		mov ah,09h
+		mov AH,09h
 		int 21h
 		ret
 Out_string endp
